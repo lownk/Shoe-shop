@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 
 function Card(props) {
-  const products = Card;
-
   return (
     <div>
       <div className="col-md-4">
