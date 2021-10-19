@@ -1,24 +1,23 @@
-// import React from "react";
-// import styled from "styled-components";
+import React from "react";
+import styled from "styled-components";
 
-// function Jumbotron() {
-//   return (
-//     <>
-//       <StyledJumbotron>
-//         <Hello, world!
-//         this is a simple hero unit, a simple jumbotron-style
-//         component for calling extra attention to featureed content or
-//         information.
-//         Learn more
-//       </StyledJumbotron>
-//     </>
-//   );
-// }
-// const StyledJumbotron = styled.div`
-//   padding: 2rem 1rem;
-//   margin-bottom: 2rem;
-//   background-color: #e9ecef;
-//   border-radius: 0.3rem;
-// `;
+function Jumbotron() {
+  return (
+    <div className="bg-light p-5 rounded-lg m-3 background">
+      <div className="innerbackground">
+        <h1 className="title">20% Season Off</h1>
+        <p className="lead">
+          This is a simple hero unit, a simple jumbotron-style component for
+          calling extra attention to featured content or information. It uses
+          utility classes for typography and spacing to space content out within
+          the larger container.
+        </p>
+        <a className="btn btn-primary btn-lg" href="#" role="button">
+          Learn more
+        </a>
+      </div>
+    </div>
+  );
+}
 
-// export default Jumbotron;
+export default Jumbotron;
