@@ -47,6 +47,7 @@ function App() {
 
       <Route exact path="/">
         <Jumbotron />
+
         <div className="container">
           <div className="row">
             {data.map((a, i) => {
