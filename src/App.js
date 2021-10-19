@@ -4,6 +4,8 @@ import { Button, Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import Data from "./data.js";
 import Card from "./Card.js";
 
+import { Link, Route, Switch } from "react-router-dom";
+
 function App() {
   let [data, data변경] = useState(Data);
 
@@ -37,28 +39,49 @@ function App() {
         </Navbar>
       </div>
 
-      <div className="bg-light p-5 rounded-lg m-3 background">
-        <div className="innerbackground">
-          <h1 className="title">20% Season Off</h1>
-          <p className="lead">
-            This is a simple hero unit, a simple jumbotron-style component for
-            calling extra attention to featured content or information. It uses
-            utility classes for typography and spacing to space content out
-            within the larger container.
-          </p>
-          <a className="btn btn-primary btn-lg" href="#" role="button">
-            Learn more
-          </a>
+      <Route exact path="/">
+        <div className="bg-light p-5 rounded-lg m-3 background">
+          <div className="innerbackground">
+            <h1 className="title">20% Season Off</h1>
+            <p className="lead">
+              This is a simple hero unit, a simple jumbotron-style component for
+              calling extra attention to featured content or information. It
+              uses utility classes for typography and spacing to space content
+              out within the larger container.
+            </p>
+            <a className="btn btn-primary btn-lg" href="#" role="button">
+              Learn more
+            </a>
+          </div>
         </div>
-      </div>
 
-      <div className="container">
-        <div className="row">
-          {data.map((a, i) => {
-            return <Card data={data[i]} i={i} key={i} />;
-          })}
+        <div className="container">
+          <div className="row">
+            {data.map((a, i) => {
+              return <Card data={data[i]} i={i} key={i} />;
+            })}
+          </div>
         </div>
-      </div>
+      </Route>
+
+      <Route path="/detail">
+        <div className="container">
+          <div className="row">
+            <div className="col-md-6">
+              <img
+                src="https://codingapple1.github.io/shop/shoes1.jpg"
+                width="100%"
+              />
+            </div>
+            <div className="col-md-6 mt-4">
+              <h4 className="pt-5">상품명</h4>
+              <p>상품설명</p>
+              <p>120000원</p>
+              <button className="btn btn-danger">주문하기</button>
+            </div>
+          </div>
+        </div>
+      </Route>
     </div>
   );
 }
