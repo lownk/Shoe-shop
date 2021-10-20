@@ -5,11 +5,14 @@ import Data from "./data.js";
 import Card from "./Card.js";
 import Jumbotron from "./Jumbotron.js";
 import Detail from "./Detail.js";
+import axios from "axios";
+import Loading from "./Loading.js";
 
 import { Link, Route, Switch } from "react-router-dom";
 
 function App() {
   let [data, data변경] = useState(Data);
+  let [클릭횟수, 클릭횟수변경] = useState(1);
 
   return (
     <div>
@@ -54,6 +57,28 @@ function App() {
               return <Card data={data[i]} i={i} key={i} />;
             })}
           </div>
+          <button
+            className="btn btn-primary"
+            onClick={() => {
+              클릭횟수변경(클릭횟수 + 1);
+              console.log(클릭횟수);
+              // <Loading />;
+              axios
+                .get(
+                  `https://codingapple1.github.io/shop/data${클릭횟수 + 1}.json`
+                )
+                .then((result) => {
+                  // 로딩중이라는 ui안보이게처리
+                  data변경([...data, ...result.data]);
+                })
+                .catch(() => {
+                  // 로딩중이라는 ui안보이게처리
+                  console.log("실패했어요.." + 클릭횟수);
+                });
+            }}
+          >
+            더보기
+          </button>
         </div>
       </Route>
 

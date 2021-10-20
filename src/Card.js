@@ -9,7 +9,7 @@ function Card(props) {
       />
       <h4>{props.data.title}</h4>
       <p>
-        {props.data.content}. {props.data.price}
+        {props.data.content}. {props.data.price}₩
       </p>
     </div>
   );
