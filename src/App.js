@@ -7,12 +7,16 @@ import Jumbotron from "./Jumbotron.js";
 import Detail from "./Detail.js";
 import axios from "axios";
 import Loading from "./Loading.js";
+import Fail from "./Fail";
 
 import { Link, Route, Switch } from "react-router-dom";
 
 function App() {
   let [data, data변경] = useState(Data);
   let [클릭횟수, 클릭횟수변경] = useState(1);
+  let [실패창, 실패창변경] = useState(false);
+  let [로딩창, 로딩창변경] = useState(false);
+  let [재고, 재고변경] = useState([10, 11, 12]);
 
   return (
     <div>
@@ -61,29 +65,32 @@ function App() {
             className="btn btn-primary"
             onClick={() => {
               클릭횟수변경(클릭횟수 + 1);
-              console.log(클릭횟수);
-              // <Loading />;
+              // console.log(클릭횟수);
+              로딩창변경(true);
               axios
                 .get(
                   `https://codingapple1.github.io/shop/data${클릭횟수 + 1}.json`
                 )
                 .then((result) => {
-                  // 로딩중이라는 ui안보이게처리
+                  로딩창변경(false);
                   data변경([...data, ...result.data]);
                 })
                 .catch(() => {
-                  // 로딩중이라는 ui안보이게처리
+                  로딩창변경(false);
+                  실패창변경(true);
                   console.log("실패했어요.." + 클릭횟수);
                 });
             }}
           >
             더보기
           </button>
+          {로딩창 == true ? <Loading /> : null}
         </div>
+        {실패창 == true ? <Fail /> : null}
       </Route>
 
       <Route path="/detail/:id">
-        <Detail data={data} />
+        <Detail data={data} 재고={재고} 재고변경={재고변경} />
       </Route>
     </div>
   );
