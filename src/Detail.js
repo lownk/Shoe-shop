@@ -27,7 +27,7 @@ function Detail(props) {
 
   let { id } = useParams();
   let history = useHistory();
-  let 찾은상품 = props.data.find(function (상품) {
+  let 찾은상품 = props.data.find((상품) => {
     return 상품.id == id;
   });
 
