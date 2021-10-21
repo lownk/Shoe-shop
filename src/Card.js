@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { 재고context } from "./App.js";
 
 function Card(props) {
+  let 재고 = useContext(재고context);
+
   return (
     <div className="col-md-4">
       <img
@@ -11,6 +14,7 @@ function Card(props) {
       <p>
         {props.data.content}. {props.data.price}₩
       </p>
+      {재고}
     </div>
   );
 }

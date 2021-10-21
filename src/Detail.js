@@ -2,22 +2,24 @@ import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import styled from "styled-components";
 import "./Detail.scss";
+import { Nav } from "react-bootstrap";
 
-let 박스 = styled.div`
+const 박스 = styled.div`
   padding-top: 30px;
 `;
 
-let 제목 = styled.h4`
+const 제목 = styled.h4`
   font-size: 25;
   color: ${(props) => props.색상};
 `;
 
 function Detail(props) {
-  let [alert, alert변경] = useState(true);
-  let [inputData, inputData변경] = useState("");
+  const [alert, alert변경] = useState(true);
+  const [inputData, inputData변경] = useState("");
+  const [누른탭, 누른탭변경] = useState(0);
 
   useEffect(() => {
-    let 타이머 = setTimeout(() => {
+    const 타이머 = setTimeout(() => {
       alert변경(false);
     }, 2000);
     return () => {
@@ -25,9 +27,9 @@ function Detail(props) {
     };
   }, []);
 
-  let { id } = useParams();
-  let history = useHistory();
-  let 찾은상품 = props.data.find((상품) => {
+  const { id } = useParams();
+  const history = useHistory();
+  const 찾은상품 = props.data.find((상품) => {
     return 상품.id == id;
   });
 
@@ -87,8 +89,53 @@ function Detail(props) {
           </button>
         </div>
       </div>
+
+      <Nav className="mt-5" variant="tabs" defaultActiveKey="link-0">
+        <Nav.Item>
+          <Nav.Link
+            eventKey="link-0"
+            onClick={() => {
+              누른탭변경(0);
+            }}
+          >
+            Option 2
+          </Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link
+            eventKey="link-1"
+            onClick={() => {
+              누른탭변경(1);
+            }}
+          >
+            Option 2
+          </Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link
+            eventKey="link-2"
+            onClick={() => {
+              누른탭변경(2);
+            }}
+          >
+            Option 3
+          </Nav.Link>
+        </Nav.Item>
+      </Nav>
+
+      <TabContent 누른탭={누른탭} />
     </div>
   );
+}
+
+function TabContent(props) {
+  if (props.누른탭 === 0) {
+    return <div>0번째 내용입니다</div>;
+  } else if (props.누른탭 === 1) {
+    return <div>1번째 내용입니다</div>;
+  } else if (props.누른탭 === 2) {
+    return <div>2번째 내용입니다</div>;
+  }
 }
 
 function Info(props) {

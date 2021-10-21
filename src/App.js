@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "./App.css";
 import { Button, Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import Data from "./data.js";
@@ -8,15 +8,16 @@ import Detail from "./Detail.js";
 import axios from "axios";
 import Loading from "./Loading.js";
 import Fail from "./Fail";
-
 import { Link, Route, Switch } from "react-router-dom";
 
+export const 재고context = React.createContext();
+
 function App() {
-  let [data, data변경] = useState(Data);
-  let [클릭횟수, 클릭횟수변경] = useState(1);
-  let [실패창, 실패창변경] = useState(false);
-  let [로딩창, 로딩창변경] = useState(false);
-  let [재고, 재고변경] = useState([10, 11, 12]);
+  const [data, data변경] = useState(Data);
+  const [클릭횟수, 클릭횟수변경] = useState(1);
+  const [실패창, 실패창변경] = useState(false);
+  const [로딩창, 로딩창변경] = useState(false);
+  const [재고, 재고변경] = useState([10, 11, 12]);
 
   return (
     <div>
@@ -54,13 +55,15 @@ function App() {
 
       <Route exact path="/">
         <Jumbotron />
-
         <div className="container">
-          <div className="row">
-            {data.map((a, i) => {
-              return <Card data={data[i]} i={i} key={i} />;
-            })}
-          </div>
+          <재고context.Provider value={재고}>
+            <div className="row">
+              {data.map((a, i) => {
+                return <Card data={data[i]} i={i} key={i} />;
+              })}
+            </div>
+          </재고context.Provider>
+
           <button
             className="btn btn-primary"
             onClick={() => {
