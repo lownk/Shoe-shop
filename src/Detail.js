@@ -3,6 +3,7 @@ import { useHistory, useParams } from "react-router-dom";
 import styled from "styled-components";
 import "./Detail.scss";
 import { Nav } from "react-bootstrap";
+import { CSSTransition } from "react-transition-group";
 
 const 박스 = styled.div`
   padding-top: 30px;
@@ -17,6 +18,7 @@ function Detail(props) {
   const [alert, alert변경] = useState(true);
   const [inputData, inputData변경] = useState("");
   const [누른탭, 누른탭변경] = useState(0);
+  const [스위치, 스위치변경] = useState(false);
 
   useEffect(() => {
     const 타이머 = setTimeout(() => {
@@ -51,6 +53,7 @@ function Detail(props) {
         </div>
       ) : null}
 
+      {/* 상품 디테일 */}
       <div className="row">
         <div className="col-md-6">
           <img
@@ -74,7 +77,7 @@ function Detail(props) {
                   return 재고빠짐;
                 }),
               ]);
-              console.log(props.재고);
+              // console.log(props.재고);
             }}
           >
             주문하기
@@ -90,11 +93,13 @@ function Detail(props) {
         </div>
       </div>
 
+      {/* 상세설명 탭 */}
       <Nav className="mt-5" variant="tabs" defaultActiveKey="link-0">
         <Nav.Item>
           <Nav.Link
             eventKey="link-0"
             onClick={() => {
+              스위치변경(false);
               누른탭변경(0);
             }}
           >
@@ -105,6 +110,7 @@ function Detail(props) {
           <Nav.Link
             eventKey="link-1"
             onClick={() => {
+              스위치변경(false);
               누른탭변경(1);
             }}
           >
@@ -115,6 +121,7 @@ function Detail(props) {
           <Nav.Link
             eventKey="link-2"
             onClick={() => {
+              스위치변경(false);
               누른탭변경(2);
             }}
           >
@@ -123,12 +130,18 @@ function Detail(props) {
         </Nav.Item>
       </Nav>
 
-      <TabContent 누른탭={누른탭} />
+      <CSSTransition in={스위치} classNames="wow" timeout={1000}>
+        <TabContent 누른탭={누른탭} 스위치변경={스위치변경} />
+      </CSSTransition>
     </div>
   );
 }
 
 function TabContent(props) {
+  useEffect(() => {
+    props.스위치변경(true);
+  });
+
   if (props.누른탭 === 0) {
     return <div>0번째 내용입니다</div>;
   } else if (props.누른탭 === 1) {
