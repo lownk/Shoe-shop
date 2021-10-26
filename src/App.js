@@ -9,6 +9,7 @@ import axios from "axios";
 import Loading from "./Loading.js";
 import Fail from "./Fail";
 import { Link, Route, Switch } from "react-router-dom";
+import Cart from "./Cart";
 
 export const 재고context = React.createContext();
 
@@ -24,7 +25,9 @@ function App() {
       <div className="App">
         <Navbar bg="light" expand="lg">
           <Container>
-            <Navbar.Brand href="#home">ShoeShop</Navbar.Brand>
+            <Navbar.Brand as={Link} to="/">
+              ShoeShop
+            </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
@@ -94,6 +97,10 @@ function App() {
 
       <Route path="/detail/:id">
         <Detail data={data} 재고={재고} 재고변경={재고변경} />
+      </Route>
+
+      <Route path="/cart">
+        <Cart />
       </Route>
     </div>
   );
