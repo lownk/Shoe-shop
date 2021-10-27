@@ -85,7 +85,7 @@ function Detail(props) {
               ]);
               dispatch({
                 type: "항목추가",
-                payload: { id: 2, name: "새로운상품", quantity: 5 },
+                payload: { id: 찾은상품.id, name: 찾은상품.title, quantity: 1 },
               });
               history.push("/cart");
             }}

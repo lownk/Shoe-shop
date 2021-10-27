@@ -11,23 +11,34 @@ import { combineReducers, createStore } from "redux";
 let 초기값 = [
   { id: 0, name: "멋진신발", quantity: 1 },
   { id: 1, name: "좋은신발", quantity: 2 },
-  { id: 2, name: "예쁜신발", quantity: 3 },
-  { id: 3, name: "이상한신발", quantity: 4 },
 ];
 
 function reducer(state = 초기값, 액션) {
   if (액션.type === "항목추가") {
-    let copy = [...state];
-    copy.push(액션.payload);
-    return copy;
+    const found = state.findIndex((a) => {
+      return a.id === 액션.payload.id;
+    });
+    //state안에 id가 액션.payload인 애가 있냐? 그 아이의 인덱스를 뱉어라
+
+    if (found >= 0) {
+      let copy = [...state];
+      copy[found].quantity++;
+      return copy;
+    } else {
+      let copy = [...state];
+      copy.push(액션.payload);
+      return copy;
+    }
   } else if (액션.type === "수량증가") {
     let copy = [...state];
     copy[액션.payload].quantity++;
     return copy;
-  } else if (액션.type === "수량감소" && state[0].quantity > 0) {
+  } else if (액션.type === "수량감소") {
     let copy = [...state];
-    copy[액션.payload].quantity--;
-    return copy;
+    if (copy[액션.payload].quantity > 0) {
+      copy[액션.payload].quantity--;
+      return copy;
+    }
   } else {
     return state;
   }

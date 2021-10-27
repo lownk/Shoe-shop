@@ -2,7 +2,6 @@ import React from "react";
 import { Table } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { connect } from "react-redux";
 import "./Cart.css";
 
 function Cart(props) {
