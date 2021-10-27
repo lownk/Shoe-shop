@@ -4,6 +4,9 @@ import styled from "styled-components";
 import "./Detail.scss";
 import { Nav } from "react-bootstrap";
 import { CSSTransition } from "react-transition-group";
+import { connect } from "react-redux";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const 박스 = styled.div`
   padding-top: 30px;
@@ -34,6 +37,9 @@ function Detail(props) {
   const 찾은상품 = props.data.find((상품) => {
     return 상품.id == id;
   });
+
+  const state = useSelector((state) => state);
+  const dispatch = useDispatch();
 
   return (
     <div className="container">
@@ -77,7 +83,11 @@ function Detail(props) {
                   return 재고빠짐;
                 }),
               ]);
-              // console.log(props.재고);
+              dispatch({
+                type: "항목추가",
+                payload: { id: 2, name: "새로운상품", quantity: 5 },
+              });
+              history.push("/cart");
             }}
           >
             주문하기

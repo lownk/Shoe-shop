@@ -34,7 +34,7 @@ function App() {
                 <Nav.Link as={Link} to="/">
                   Home
                 </Nav.Link>
-                <Nav.Link as={Link} to="/detail">
+                <Nav.Link as={Link} to="/detail/1">
                   Detail
                 </Nav.Link>
                 <NavDropdown title="Dropdown" id="basic-nav-dropdown">
