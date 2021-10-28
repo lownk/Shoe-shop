@@ -1,5 +1,5 @@
 import React from "react";
-import { Table } from "react-bootstrap";
+import { Button, Table } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import "./Cart.css";
@@ -16,7 +16,7 @@ function Cart(props) {
             <th>#</th>
             <th>상품명</th>
             <th>수량</th>
-            <th>변경</th>
+            <th>상품 삭제</th>
           </tr>
         </thead>
         <tbody>
@@ -25,22 +25,35 @@ function Cart(props) {
               <tr key={i}>
                 <td>{a.id}</td>
                 <td>{a.name}</td>
-                <td>{a.quantity}</td>
                 <td>
-                  <button
+                  <Button
+                    variant="dark"
                     onClick={() => {
                       dispatch({ type: "수량증가", payload: a.id });
                     }}
                   >
                     +
-                  </button>
-                  <button
+                  </Button>
+                  {a.quantity}
+                  <Button
+                    variant="dark"
                     onClick={() => {
                       dispatch({ type: "수량감소", payload: a.id });
                     }}
                   >
                     -
-                  </button>
+                  </Button>
+                </td>
+                <td>
+                  <Button
+                    className="btn btn-primary"
+                    variant="상품삭제"
+                    onClick={() => {
+                      dispatch({ type: "상품삭제", payload: a.id });
+                    }}
+                  >
+                    삭제
+                  </Button>
                 </td>
               </tr>
             );

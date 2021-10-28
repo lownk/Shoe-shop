@@ -8,9 +8,9 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { combineReducers, createStore } from "redux";
 
-let 초기값 = [
+const 초기값 = [
   { id: 0, name: "멋진신발", quantity: 1 },
-  { id: 1, name: "좋은신발", quantity: 2 },
+  { id: 1, name: "좋은신발", quantity: 1 },
 ];
 
 function reducer(state = 초기값, 액션) {
@@ -21,30 +21,34 @@ function reducer(state = 초기값, 액션) {
     //state안에 id가 액션.payload인 애가 있냐? 그 아이의 인덱스를 뱉어라
 
     if (found >= 0) {
-      let copy = [...state];
+      const copy = [...state];
       copy[found].quantity++;
       return copy;
     } else {
-      let copy = [...state];
+      const copy = [...state];
       copy.push(액션.payload);
       return copy;
     }
   } else if (액션.type === "수량증가") {
-    let copy = [...state];
+    const copy = [...state];
     copy[액션.payload].quantity++;
     return copy;
   } else if (액션.type === "수량감소") {
-    let copy = [...state];
-    if (copy[액션.payload].quantity > 0) {
-      copy[액션.payload].quantity--;
-      return copy;
-    }
+    const copy = [...state];
+    copy[액션.payload].quantity--;
+    return copy;
+  } else if (액션.type === "상품삭제") {
+    const copy = [...state];
+    const 생존상품 = copy.filter((상품) => {
+      return 상품.id !== 액션.payload;
+    });
+    return 생존상품;
   } else {
     return state;
   }
 }
 
-let alert초기값 = true;
+const alert초기값 = true;
 function reducer2(state = alert초기값, 액션) {
   if (액션.type === "alert닫기") {
     state = false;
@@ -54,7 +58,7 @@ function reducer2(state = alert초기값, 액션) {
   }
 }
 
-let store = createStore(combineReducers({ reducer, reducer2 }));
+const store = createStore(combineReducers({ reducer, reducer2 }));
 
 ReactDOM.render(
   <React.StrictMode>

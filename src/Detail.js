@@ -73,6 +73,16 @@ function Detail(props) {
           <p>{찾은상품.price}원</p>
 
           <Info 재고={props.재고} />
+          <div>
+            사이즈 선택
+            <select name="sizes" id="sizes">
+              <option value="230">230</option>
+              <option value="240">240</option>
+              <option value="250">250</option>
+              <option value="260">260</option>
+              <option value="270">270</option>
+            </select>
+          </div>
 
           <button
             className="btn btn-danger"
@@ -113,7 +123,7 @@ function Detail(props) {
               누른탭변경(0);
             }}
           >
-            Option 2
+            상품 상세 설명
           </Nav.Link>
         </Nav.Item>
         <Nav.Item>
@@ -124,7 +134,7 @@ function Detail(props) {
               누른탭변경(1);
             }}
           >
-            Option 2
+            배송정보
           </Nav.Link>
         </Nav.Item>
         <Nav.Item>
@@ -135,7 +145,7 @@ function Detail(props) {
               누른탭변경(2);
             }}
           >
-            Option 3
+            교환/환불
           </Nav.Link>
         </Nav.Item>
       </Nav>
