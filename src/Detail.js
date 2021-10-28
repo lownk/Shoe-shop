@@ -4,7 +4,6 @@ import styled from "styled-components";
 import "./Detail.scss";
 import { Nav } from "react-bootstrap";
 import { CSSTransition } from "react-transition-group";
-import { connect } from "react-redux";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 
@@ -22,6 +21,37 @@ function Detail(props) {
   const [inputData, inputData변경] = useState("");
   const [누른탭, 누른탭변경] = useState(0);
   const [스위치, 스위치변경] = useState(false);
+  const { id } = useParams();
+  const history = useHistory();
+  const 찾은상품 = props.data.find((상품) => {
+    return 상품.id == id;
+  });
+  const state = useSelector((state) => state);
+  const dispatch = useDispatch();
+
+  // 1. 누가 detail페이지 들어가면
+  // 2. local storage에 있는 항목을 꺼냄
+  // 3. 경우가 두가지가 있겠네? null이 나오거나 []가 나오거나
+  // 4. []가 나오면 따옴표 제거하고 url파라미터의 id부분을 push()함
+  // 5. array에 0이 이미 있으면 0추가하지말고 그냥냅둬주길 중복 처리하기 (set자료형)
+  // 6. 그러면 []를 다시 llocalStorge에 저장함(따옴표쳐서)
+
+  useEffect(() => {
+    // localStorage.setItem("watched", "[]");
+    let arr = localStorage.getItem("watched");
+
+    if (arr == null) {
+      arr = [];
+    } else {
+      arr = JSON.parse(arr);
+    }
+
+    arr.push(id);
+    arr = new Set(arr);
+    arr = [...arr];
+
+    localStorage.setItem("watched", JSON.stringify(arr));
+  }, []);
 
   useEffect(() => {
     const 타이머 = setTimeout(() => {
@@ -31,15 +61,6 @@ function Detail(props) {
       clearTimeout(타이머); //setTimeOut주의점 : 컴포넌트 사라질때 타이머 해제하기. 코드꼬임 버그예방
     };
   }, []);
-
-  const { id } = useParams();
-  const history = useHistory();
-  const 찾은상품 = props.data.find((상품) => {
-    return 상품.id == id;
-  });
-
-  const state = useSelector((state) => state);
-  const dispatch = useDispatch();
 
   return (
     <div className="container">
@@ -63,7 +84,9 @@ function Detail(props) {
       <div className="row">
         <div className="col-md-6">
           <img
-            src="https://codingapple1.github.io/shop/shoes1.jpg"
+            src={`https://codingapple1.github.io/shop/shoes${
+              찾은상품.id + 1
+            }.jpg`}
             width="100%"
           />
         </div>

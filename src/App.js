@@ -1,6 +1,6 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import "./App.css";
-import { Button, Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
+import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import Data from "./data.js";
 import Card from "./Card.js";
 import Jumbotron from "./Jumbotron.js";
@@ -8,7 +8,7 @@ import Detail from "./Detail.js";
 import axios from "axios";
 import Loading from "./Loading.js";
 import Fail from "./Fail";
-import { Link, Route, Switch } from "react-router-dom";
+import { Link, Route } from "react-router-dom";
 import Cart from "./Cart";
 
 export const 재고context = React.createContext();
