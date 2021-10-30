@@ -29,19 +29,19 @@ function Cart(props) {
                   <Button
                     variant="dark"
                     onClick={() => {
-                      dispatch({ type: "수량증가", payload: a.id });
+                      dispatch({ type: "수량감소", payload: a.id });
                     }}
                   >
-                    +
+                    -
                   </Button>
                   {a.quantity}
                   <Button
                     variant="dark"
                     onClick={() => {
-                      dispatch({ type: "수량감소", payload: a.id });
+                      dispatch({ type: "수량증가", payload: a.id });
                     }}
                   >
-                    -
+                    +
                   </Button>
                 </td>
                 <td>

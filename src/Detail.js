@@ -6,6 +6,7 @@ import { Nav } from "react-bootstrap";
 import { CSSTransition } from "react-transition-group";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
+import { faSquare } from "@fortawesome/free-regular-svg-icons";
 
 const 박스 = styled.div`
   padding-top: 30px;
@@ -18,7 +19,7 @@ const 제목 = styled.h4`
 
 function Detail(props) {
   const [alert, alert변경] = useState(true);
-  const [inputData, inputData변경] = useState("");
+  // const [inputData, inputData변경] = useState("");
   const [누른탭, 누른탭변경] = useState(0);
   const [스위치, 스위치변경] = useState(false);
   const { id } = useParams();
@@ -67,12 +68,12 @@ function Detail(props) {
       <박스>
         <제목>Detail</제목>
       </박스>
-      {inputData}
+      {/* {inputData}
       <input
         onChange={(e) => {
           inputData변경(e.target.value);
         }}
-      />
+      /> */}
 
       {alert === true ? (
         <div className="my-alert2">
@@ -82,6 +83,7 @@ function Detail(props) {
 
       {/* 상품 디테일 */}
       <div className="row">
+        <div className="col-md-1 faSquare"></div>
         <div className="col-md-6">
           <img
             src={`https://codingapple1.github.io/shop/shoes${
@@ -90,13 +92,12 @@ function Detail(props) {
             width="100%"
           />
         </div>
-        <div className="col-md-6 mt-4">
+        <div className="col-md-4 mt-2">
           <h4 className="pt-5">{찾은상품.title}</h4>
           <p>{찾은상품.content}</p>
           <p>{찾은상품.price}원</p>
-
           <Info 재고={props.재고} />
-          <div>
+          {/* <div>
             사이즈 선택
             <select name="sizes" id="sizes">
               <option value="230">230</option>
@@ -105,8 +106,7 @@ function Detail(props) {
               <option value="260">260</option>
               <option value="270">270</option>
             </select>
-          </div>
-
+          </div> */}
           <button
             className="btn btn-danger"
             onClick={() => {
@@ -134,6 +134,7 @@ function Detail(props) {
             뒤로가기
           </button>
         </div>
+        <div className="col-md-1"> djEJwnrn</div>
       </div>
 
       {/* 상세설명 탭 */}
