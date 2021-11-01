@@ -6,7 +6,13 @@ import { Nav } from "react-bootstrap";
 import { CSSTransition } from "react-transition-group";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { faSquare } from "@fortawesome/free-regular-svg-icons";
+// import { library } from "@fortawesome/fontawesome-svg-core";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faChevronLeft,
+  faChevronRight,
+} from "@fortawesome/free-solid-svg-icons";
+import RecentlyViewed from "./RecentlyViewed";
 
 const 박스 = styled.div`
   padding-top: 30px;
@@ -30,12 +36,13 @@ function Detail(props) {
   const state = useSelector((state) => state);
   const dispatch = useDispatch();
 
+  // 최근 본 상품 기능 구현
   // 1. 누가 detail페이지 들어가면
   // 2. local storage에 있는 항목을 꺼냄
   // 3. 경우가 두가지가 있겠네? null이 나오거나 []가 나오거나
   // 4. []가 나오면 따옴표 제거하고 url파라미터의 id부분을 push()함
   // 5. array에 0이 이미 있으면 0추가하지말고 그냥냅둬주길 중복 처리하기 (set자료형)
-  // 6. 그러면 []를 다시 llocalStorge에 저장함(따옴표쳐서)
+  // 6. 그러면 []를 다시 localStorge에 저장함(따옴표쳐서)
 
   useEffect(() => {
     // localStorage.setItem("watched", "[]");
@@ -46,7 +53,6 @@ function Detail(props) {
     } else {
       arr = JSON.parse(arr);
     }
-
     arr.push(id);
     arr = new Set(arr);
     arr = [...arr];
@@ -66,7 +72,7 @@ function Detail(props) {
   return (
     <div className="container">
       <박스>
-        <제목>Detail</제목>
+        <제목>Product Detail</제목>
       </박스>
       {/* {inputData}
       <input
@@ -83,8 +89,17 @@ function Detail(props) {
 
       {/* 상품 디테일 */}
       <div className="row">
-        <div className="col-md-1 faSquare"></div>
-        <div className="col-md-6">
+        <div className="col-md-1 m-auto">
+          <FontAwesomeIcon
+            icon={faChevronLeft}
+            className="arrow"
+            size="2x"
+            onClick={() => {
+              history.push(`/detail/${id - 1}`);
+            }}
+          />
+        </div>
+        <div className="col-md-6 m-auto">
           <img
             src={`https://codingapple1.github.io/shop/shoes${
               찾은상품.id + 1
@@ -92,10 +107,12 @@ function Detail(props) {
             width="100%"
           />
         </div>
-        <div className="col-md-4 mt-2">
+        <div className="col-md-4 m-auto">
           <h4 className="pt-5">{찾은상품.title}</h4>
           <p>{찾은상품.content}</p>
-          <p>{찾은상품.price}원</p>
+          <p>
+            ₩{찾은상품.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+          </p>
           <Info 재고={props.재고} />
           {/* <div>
             사이즈 선택
@@ -108,7 +125,15 @@ function Detail(props) {
             </select>
           </div> */}
           <button
-            className="btn btn-danger"
+            className="btn btn-dark mx-2 my-3 px-4"
+            onClick={() => {
+              history.push("/");
+            }}
+          >
+            뒤로가기
+          </button>
+          <button
+            className="btn btn-primary mx-2 px-4"
             onClick={() => {
               props.재고변경([
                 ...props.재고.map((i) => {
@@ -125,17 +150,20 @@ function Detail(props) {
           >
             주문하기
           </button>
-          <button
-            className="btn btn-danger"
-            onClick={() => {
-              history.push("/");
-            }}
-          >
-            뒤로가기
-          </button>
         </div>
-        <div className="col-md-1"> djEJwnrn</div>
+        <div className="col-md-1 m-auto">
+          <FontAwesomeIcon
+            icon={faChevronRight}
+            className="arrow"
+            size="2x"
+            onClick={() => {
+              history.push(`/detail/${+id + 1}`);
+            }}
+          />
+        </div>
       </div>
+
+      <RecentlyViewed />
 
       {/* 상세설명 탭 */}
       <Nav className="mt-5" variant="tabs" defaultActiveKey="link-0">

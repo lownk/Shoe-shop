@@ -1,9 +1,9 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useHistory } from "react-router";
-import { 재고context } from "./App.js";
+// import { 재고context } from "./App.js";
 
 function Card(props) {
-  const 재고 = useContext(재고context);
+  // const 재고 = useContext(재고context);
   const history = useHistory();
 
   return (
@@ -18,10 +18,11 @@ function Card(props) {
         width="100%"
       />
       <h4>{props.data.title}</h4>
+      <p>{props.data.content}.</p>
       <p>
-        {props.data.content}. {props.data.price}₩
+        ₩{props.data.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
       </p>
-      재고 : {재고}
+      {/* 재고 : {재고} */}
     </div>
   );
 }

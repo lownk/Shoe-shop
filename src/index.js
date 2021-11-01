@@ -9,8 +9,8 @@ import { Provider } from "react-redux";
 import { combineReducers, createStore } from "redux";
 
 const 초기값 = [
-  { id: 0, name: "멋진신발", quantity: 1 },
-  { id: 1, name: "좋은신발", quantity: 1 },
+  // { id: 0, name: "멋진신발", quantity: 1 },
+  // { id: 1, name: "좋은신발", quantity: 1 },
 ];
 
 function reducer(state = 초기값, 액션) {

@@ -1,5 +1,3 @@
-$메인칼라: #ff0000;
-
 .wow-enter {
   opacity: 0;
 }
@@ -24,18 +22,27 @@ $메인칼라: #ff0000;
 
 .my-alert2 {
   @extend .my-alert;
-  background: #ffe591;
+  background: #7bb0ff;
 }
 
-@mixin 함수 {
-  background-color: #eeeeee;
-  padding: 20px;
-  border-radius: 5px;
-  max-width: 500px;
-  width: 100%;
-  margin: auto;
-}
+// @mixin 함수 {
+//   background-color: #eeeeee;
+//   padding: 20px;
+//   border-radius: 5px;
+//   max-width: 500px;
+//   width: 100%;
+//   margin: auto;
+// }
 
 .my-alert p {
   margin-bottom: 0;
+}
+
+.arrow {
+  color: gray;
+  cursor: pointer;
+}
+
+.arrow:hover {
+  color: black;
 }

@@ -26,7 +26,7 @@ function App() {
         <Navbar bg="light" expand="lg">
           <Container>
             <Navbar.Brand as={Link} to="/">
-              ShoeShop
+              sinuSHOE
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
@@ -35,7 +35,7 @@ function App() {
                   Home
                 </Nav.Link>
                 <Nav.Link as={Link} to="/detail/0">
-                  Detail
+                  Product Detail
                 </Nav.Link>
                 <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                   <NavDropdown.Item href="#action/3.1" as={Link} to="/cart">
@@ -61,13 +61,13 @@ function App() {
       <Route exact path="/">
         <Jumbotron />
         <div className="container">
-          <재고context.Provider value={재고}>
-            <div className="row">
-              {data.map((a, i) => {
-                return <Card data={data[i]} i={i} key={i} />;
-              })}
-            </div>
-          </재고context.Provider>
+          {/* <재고context.Provider value={재고}> */}
+          <div className="row">
+            {data.map((a, i) => {
+              return <Card data={data[i]} i={i} key={i} />;
+            })}
+          </div>
+          {/* </재고context.Provider> */}
 
           <button
             className="btn btn-primary"
