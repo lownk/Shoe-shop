@@ -87,13 +87,11 @@ function Detail(props) {
           inputData변경(e.target.value);
         }}
       /> */}
-
       {alert === true ? (
         <div className="my-alert2">
           <p>재고가 얼마 남지 않았습니다.</p>
         </div>
       ) : null}
-
       {/* 상품 디테일 */}
       <div className="row">
         <div className="col-md-1 m-auto">
@@ -169,11 +167,13 @@ function Detail(props) {
           />
         </div>
       </div>
-
       <RecentlyViewed />
-
       {/* 상세설명 탭 */}
-      <Nav className="mt-5" variant="tabs" defaultActiveKey="link-0">
+      <Nav
+        className="mt-5 describeBox"
+        variant="tabs"
+        defaultActiveKey="link-0"
+      >
         <Nav.Item>
           <Nav.Link
             eventKey="link-0"
@@ -208,7 +208,6 @@ function Detail(props) {
           </Nav.Link>
         </Nav.Item>
       </Nav>
-
       <CSSTransition in={스위치} classNames="wow" timeout={1000}>
         <TabContent 누른탭={누른탭} 스위치변경={스위치변경} />
       </CSSTransition>
@@ -220,13 +219,14 @@ function TabContent(props) {
   useEffect(() => {
     props.스위치변경(true);
   });
-
+  const dummyText =
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam blandit orci quis tortor euismod congue. Vivamus hendrerit ullamcorper dignissim. Quisque ultrices at mi in viverra. Nulla facilisi. Sed vel velit at velit consectetur consectetur. Etiam sapien justo, tristique eget fermentum eu, malesuada sed diam. Nulla facilisi. Proin suscipit tincidunt purus ac molestie. Nulla leo tortor, sodales a fringilla sit amet, lacinia eu orci. Sed porttitor iaculis lectus id pharetra. Nullam malesuada, nisl at vulputate elementum, purus nisl iaculis purus, eu tempor elit mi et odio. In quis consectetur risus, ac feugiat ante. Nunc imperdiet, velit quis rhoncus pellentesque, justo nisi lacinia mi, et bibendum ipsum libero id nibh. Phasellus blandit ante laoreet tempor venenatis. In iaculis dolor in neque sodales dapibus. Quisque lacinia dictum vestibulum. Vestibulum ornare nulla eu massa congue maximus. Phasellus venenatis volutpat risus, vitae luctus purus gravida eget. Vestibulum id arcu vitae quam dictum viverra nec nec metus. Sed vulputate ultrices purus, id viverra mauris luctus sit amet. Mauris eget lectus mattis, posuere nibh non, vestibulum arcu. Mauris aliquam dui at ante hendrerit, sit amet imperdiet diam sodales.";
   if (props.누른탭 === 0) {
-    return <div>0번째 내용입니다</div>;
+    return <div className="describeText">{dummyText}</div>;
   } else if (props.누른탭 === 1) {
-    return <div>1번째 내용입니다</div>;
+    return <div className="describeText">{dummyText}</div>;
   } else if (props.누른탭 === 2) {
-    return <div>2번째 내용입니다</div>;
+    return <div className="describeText">{dummyText}</div>;
   }
 }
 

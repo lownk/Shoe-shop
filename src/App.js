@@ -18,6 +18,7 @@ function App() {
   let [클릭횟수, 클릭횟수변경] = useState(1);
   let [실패창, 실패창변경] = useState(false);
   let [로딩창, 로딩창변경] = useState(false);
+  let [더보기, 더보기변경] = useState(true);
   let [재고, 재고변경] = useState([10, 11, 12]);
 
   return (
@@ -69,30 +70,36 @@ function App() {
           </div>
           {/* </재고context.Provider> */}
 
-          <button
-            className="btn btn-primary"
-            onClick={() => {
-              클릭횟수변경(클릭횟수 + 1);
-              // console.log(클릭횟수);
-              로딩창변경(true);
-              실패창변경(false);
-              axios
-                .get(
-                  `https://codingapple1.github.io/shop/data${클릭횟수 + 1}.json`
-                )
-                .then((result) => {
-                  로딩창변경(false);
-                  data변경([...data, ...result.data]);
-                })
-                .catch(() => {
-                  로딩창변경(false);
-                  실패창변경(true);
-                  console.log("실패했어요.." + 클릭횟수);
-                });
-            }}
-          >
-            더보기
-          </button>
+          {더보기 == true ? (
+            <button
+              className="btn btn-primary my-5 px-5"
+              onClick={() => {
+                클릭횟수변경(클릭횟수 + 1);
+                // console.log(클릭횟수);
+                로딩창변경(true);
+                실패창변경(false);
+                axios
+                  .get(
+                    `https://codingapple1.github.io/shop/data${
+                      클릭횟수 + 1
+                    }.json`
+                  )
+                  .then((result) => {
+                    로딩창변경(false);
+                    data변경([...data, ...result.data]);
+                  })
+                  .catch(() => {
+                    로딩창변경(false);
+                    실패창변경(true);
+                    더보기변경(false);
+                    console.log("실패했어요.." + 클릭횟수);
+                  });
+              }}
+            >
+              더보기
+            </button>
+          ) : null}
+
           {로딩창 == true ? <Loading /> : null}
         </div>
         {실패창 == true ? <Fail /> : null}
