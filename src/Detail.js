@@ -24,16 +24,16 @@ const 제목 = styled.h4`
 `;
 
 function Detail(props) {
-  const [alert, alert변경] = useState(true);
+  let [alert, alert변경] = useState(true);
   // const [inputData, inputData변경] = useState("");
-  const [누른탭, 누른탭변경] = useState(0);
-  const [스위치, 스위치변경] = useState(false);
+  let [누른탭, 누른탭변경] = useState(0);
+  let [스위치, 스위치변경] = useState(false);
   const { id } = useParams();
-  const history = useHistory();
-  const 찾은상품 = props.data.find((상품) => {
+  let history = useHistory();
+  let 찾은상품 = props.data.find((상품) => {
     return 상품.id == id;
   });
-  const state = useSelector((state) => state);
+  let state = useSelector((state) => state);
   const dispatch = useDispatch();
 
   // 최근 본 상품 기능 구현
@@ -125,7 +125,7 @@ function Detail(props) {
             </select>
           </div> */}
           <button
-            className="btn btn-dark mx-2 my-3 px-4"
+            className="btn btn-dark mx-2 my-3 px-5 py-3"
             onClick={() => {
               history.push("/");
             }}
@@ -133,7 +133,7 @@ function Detail(props) {
             뒤로가기
           </button>
           <button
-            className="btn btn-primary mx-2 px-4"
+            className="btn btn-primary mx-2 px-5 py-3"
             onClick={() => {
               props.재고변경([
                 ...props.재고.map((i) => {

@@ -14,11 +14,11 @@ import Cart from "./Cart";
 export const 재고context = React.createContext();
 
 function App() {
-  const [data, data변경] = useState(Data);
-  const [클릭횟수, 클릭횟수변경] = useState(1);
-  const [실패창, 실패창변경] = useState(false);
-  const [로딩창, 로딩창변경] = useState(false);
-  const [재고, 재고변경] = useState([10, 11, 12]);
+  let [data, data변경] = useState(Data);
+  let [클릭횟수, 클릭횟수변경] = useState(1);
+  let [실패창, 실패창변경] = useState(false);
+  let [로딩창, 로딩창변경] = useState(false);
+  let [재고, 재고변경] = useState([10, 11, 12]);
 
   return (
     <div>
