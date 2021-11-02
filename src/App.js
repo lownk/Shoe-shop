@@ -75,6 +75,7 @@ function App() {
               클릭횟수변경(클릭횟수 + 1);
               // console.log(클릭횟수);
               로딩창변경(true);
+              실패창변경(false);
               axios
                 .get(
                   `https://codingapple1.github.io/shop/data${클릭횟수 + 1}.json`

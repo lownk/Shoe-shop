@@ -28,7 +28,7 @@ function Detail(props) {
   // const [inputData, inputData변경] = useState("");
   let [누른탭, 누른탭변경] = useState(0);
   let [스위치, 스위치변경] = useState(false);
-  const { id } = useParams();
+  let { id } = useParams();
   let history = useHistory();
   let 찾은상품 = props.data.find((상품) => {
     return 상품.id == id;
@@ -53,11 +53,18 @@ function Detail(props) {
     } else {
       arr = JSON.parse(arr);
     }
+
     arr.push(id);
-    arr = new Set(arr);
     arr = [...arr];
 
+    if (arr.includes(id)) {
+      arr = arr.filter((a) => a !== id);
+      arr.push(id);
+    }
+    //이미 본 상품을 또 봤을때 이전의 자리에서 제거하고 배열의 가장 끝에 다시 추가해줌(최신순이 되도록)
+
     localStorage.setItem("watched", JSON.stringify(arr));
+    console.log(arr);
   }, []);
 
   useEffect(() => {

@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import "./RecentlyViewed.scss";
 
 function RecentlyViewed() {
-  const { id } = useParams();
+  let { id } = useParams();
   let [최근본상품, 최근본상품변경] = useState([]);
 
   // localStorage에 있는 watched array를 가지고와서
@@ -16,9 +16,10 @@ function RecentlyViewed() {
     let arr = localStorage.getItem("watched");
     arr = JSON.parse(arr);
     // console.log(arr);
-    arr = [...arr];
+    let newArr = [...arr];
+    newArr = newArr.filter((num) => num !== "0");
 
-    최근본상품변경(arr);
+    최근본상품변경(newArr);
   }, []);
 
   useEffect(() => {
@@ -26,31 +27,19 @@ function RecentlyViewed() {
   }, [최근본상품]);
 
   return (
-    <div className="container hehe">
-      <div className="row m-auto">
+    <div className="container recentlyViewedBox">
+      <div className="row">
+        최근 본 상품
         {최근본상품.map((a, i) => {
-          return (
-            <div className="col-md-2">
+          return a > 0 ? (
+            <div className="innerBox col-md-2">
               <img
                 src={`https://codingapple1.github.io/shop/shoes${a}.jpg`}
-                width="100%"
+                width="90%"
               />
             </div>
-          );
+          ) : null;
         })}
-
-        {/* <div className="col-md-2">
-          <img
-            src={`https://codingapple1.github.io/shop/shoes${id}.jpg`}
-            width="100%"
-          />
-        </div>
-        <div className="col-md-2">
-          <img
-            src={`https://codingapple1.github.io/shop/shoes${id}.jpg`}
-            width="100%"
-          />
-        </div> */}
       </div>
     </div>
   );

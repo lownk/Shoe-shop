@@ -1,17 +1,11 @@
 import React from "react";
-import styled from "styled-components";
-
-const styleOne = styled.div`
-  margin: auto;
-  font-size: 5rem;
-  color: red;
-`;
+import "./Fail.scss";
 
 function Fail() {
   return (
-    <styleOne>
-      서버 데이터 요청에 실패하였습니다. 새로고침 후 다시 시도해주세요.
-    </styleOne>
+    <div class="shadow-sm p-3 mb-5 bg-light rounded py-3">
+      서버 데이터 요청에 실패하였습니다. 새로고침 후 다시 시도해주세요!
+    </div>
   );
 }
 
