@@ -119,16 +119,7 @@ function Detail(props) {
             ₩{찾은상품.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
           </p>
           <Info 재고={props.재고} />
-          {/* <div>
-            사이즈 선택
-            <select name="sizes" id="sizes">
-              <option value="230">230</option>
-              <option value="240">240</option>
-              <option value="250">250</option>
-              <option value="260">260</option>
-              <option value="270">270</option>
-            </select>
-          </div> */}
+
           <button
             className="btn btn-dark mx-2 my-3 px-5 py-3"
             onClick={() => {

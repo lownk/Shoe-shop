@@ -1,0 +1,9 @@
+.mouseOver {
+  margin: 30px auto;
+  cursor: pointer;
+  transition: transform 0.2s; /* Animation */
+}
+
+.mouseOver:hover {
+  transform: scale(1.15);
+}

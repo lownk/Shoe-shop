@@ -1,5 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router";
+import "./Card.scss";
 // import { 재고context } from "./App.js";
 
 function Card(props) {
@@ -8,7 +9,7 @@ function Card(props) {
 
   return (
     <div
-      className="col-md-4"
+      className="col-md-4 mouseOver"
       onClick={() => {
         history.push(`/detail/${props.data.id}`);
       }}

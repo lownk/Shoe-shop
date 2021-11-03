@@ -16,6 +16,12 @@
 
       img {
         border-radius: 7px;
+        cursor: pointer;
+        transition: transform 0.2s; /* Animation */
+      }
+
+      img:hover {
+        transform: scale(1.15);
       }
     }
 

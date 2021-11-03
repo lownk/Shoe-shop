@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import "./RecentlyViewed.scss";
 
 function RecentlyViewed() {
   let { id } = useParams();
   let [최근본상품, 최근본상품변경] = useState([]);
+  const history = useHistory();
 
   // localStorage에 있는 watched array를 가지고와서
   // parse로 따옴표 제거한 후
@@ -36,6 +37,9 @@ function RecentlyViewed() {
               <img
                 src={`https://codingapple1.github.io/shop/shoes${a}.jpg`}
                 width="90%"
+                onClick={() => {
+                  history.push(`/detail/${a - 1}`);
+                }}
               />
             </div>
           ) : null;
