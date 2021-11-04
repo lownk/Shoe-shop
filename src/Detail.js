@@ -13,6 +13,8 @@ import {
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import RecentlyViewed from "./RecentlyViewed";
+// import { GlassMagnifier } from "react-image-magnifiers";
+import Magnifier from "react-glass-magnifier";
 
 const 박스 = styled.div`
   padding-top: 30px;
@@ -21,6 +23,8 @@ const 박스 = styled.div`
 const 제목 = styled.h4`
   font-size: 25;
   color: ${(props) => props.색상};
+  margin-top: 30px;
+  margin-bottom: 20px;
 `;
 
 function Detail(props) {
@@ -87,11 +91,13 @@ function Detail(props) {
           inputData변경(e.target.value);
         }}
       /> */}
+
       {alert === true ? (
         <div className="my-alert2">
           <p>재고가 얼마 남지 않았습니다.</p>
         </div>
       ) : null}
+
       {/* 상품 디테일 */}
       <div className="row">
         <div className="col-md-1 m-auto">
@@ -105,12 +111,30 @@ function Detail(props) {
           />
         </div>
         <div className="col-md-6 m-auto">
-          <img
-            src={`https://codingapple1.github.io/shop/shoes${
-              찾은상품.id + 1
-            }.jpg`}
-            width="100%"
-          />
+          <div className="wrap">
+            <Magnifier
+              className="magImage"
+              imageUrl={`https://codingapple1.github.io/shop/shoes${
+                찾은상품.id + 1
+              }.jpg`}
+              imgAlt="shoe"
+              zoomFactor={1.8}
+              glassDimension={240}
+              largeImageUrl={`https://codingapple1.github.io/shop/shoes${
+                찾은상품.id + 1
+              }.jpg`}
+              glassBorderColor="white"
+              glassBorderWidth={1}
+            />
+            {/* <img
+              className="target"
+              data-scale="2"
+              src={`https://codingapple1.github.io/shop/shoes${
+                찾은상품.id + 1
+              }.jpg`}
+              width="100%"
+            /> */}
+          </div>
         </div>
         <div className="col-md-4 m-auto">
           <h4 className="pt-5">{찾은상품.title}</h4>

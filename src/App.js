@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./App.css";
+import "./App.scss";
 import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import Data from "./data.js";
 import Card from "./Card.js";
@@ -117,8 +117,8 @@ function App() {
         <Jumbotron />
         <div className="container">
           {/* 필터기능 */}
-          <div>
-            필터
+          <div className="filterStyle">
+            상품 필터 :
             <select
               onChange={(e) => {
                 옵션선택(e);
@@ -126,9 +126,9 @@ function App() {
               name="producFilter"
               id="productFilter"
             >
-              <option value="필터없음">필터없음</option>
-              <option value="낮은가격순">낮은가격순</option>
-              <option value="높은가격순">높은가격순</option>
+              <option value="필터없음">필터 없음</option>
+              <option value="낮은가격순">낮은 가격순</option>
+              <option value="높은가격순">높은 가격순</option>
               <option value="상품명순">상품명순</option>
             </select>
           </div>

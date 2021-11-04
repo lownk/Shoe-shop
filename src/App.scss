@@ -10,12 +10,15 @@
   text-align: center;
 }
 
-/* .innerbackground {
-  background-color: violet;
-  background-position: 50% 60%;
-  background-size: cover;
-  text-align: center;
-} */
+.filterStyle {
+  text-align: right;
+  margin-top: 30px;
+  margin-bottom: 10px;
+
+  select {
+    margin-left: 10px;
+  }
+}
 
 .row {
   text-align: center;
