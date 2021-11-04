@@ -8,6 +8,7 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { combineReducers, createStore } from "redux";
 
+// 장바구니
 const 초기값 = [
   // { id: 0, name: "멋진신발", quantity: 1 },
   // { id: 1, name: "좋은신발", quantity: 1 },
@@ -48,7 +49,9 @@ function reducer(state = 초기값, 액션) {
   }
 }
 
+// alert창
 const alert초기값 = true;
+
 function reducer2(state = alert초기값, 액션) {
   if (액션.type === "alert닫기") {
     state = false;

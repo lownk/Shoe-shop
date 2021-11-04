@@ -20,28 +20,59 @@ function App() {
   let [로딩창, 로딩창변경] = useState(false);
   let [더보기, 더보기변경] = useState(true);
   let [재고, 재고변경] = useState([10, 11, 12]);
-  let [상품가격, 상품가격변경] = useState([]);
 
-  // useEffect(() => {
-  //   let priceArr = [];
-  //   data.map((상품) => {
-  //     if (상품.price > 0) {
+  // 필터링함수
 
-  //       // priceArr.push(상품.price);
-  //     }
-  //     // 상품가격변경(priceArr);
-  //     // console.log(상품가격);
-  //   });
-  // }, [로딩창]);
+  let 필터없음 = () => {
+    let sortingField = "id";
+    let copyData = [...data];
+    copyData = copyData.sort(function (a, b) {
+      return a[sortingField] - b[sortingField];
+    });
+    data변경(copyData);
+  };
 
-  let 낮은가격순정렬 = () => {
+  let 낮은가격순 = () => {
     let sortingField = "price";
     let copyData = [...data];
     copyData = copyData.sort(function (a, b) {
       return a[sortingField] - b[sortingField];
     });
-    상품가격변경(copyData);
-    console.log(상품가격변경);
+    data변경(copyData);
+  };
+
+  let 높은가격순 = () => {
+    let sortingField = "price";
+    let copyData = [...data];
+    copyData = copyData.sort(function (a, b) {
+      return b[sortingField] - a[sortingField];
+    });
+    data변경(copyData);
+  };
+
+  let 상품명순 = () => {
+    let copyData = [...data];
+    copyData = copyData.sort(function (a, b) {
+      return a.title < b.title ? -1 : a.title > b.title ? 1 : 0;
+    });
+    data변경(copyData);
+  };
+
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
+
+  // 옵션 이벤트핸들러
+  let 옵션선택 = (e) => {
+    if (e.target.value === "필터없음") {
+      필터없음();
+    } else if (e.target.value === "낮은가격순") {
+      낮은가격순();
+    } else if (e.target.value === "높은가격순") {
+      높은가격순();
+    } else if (e.target.value === "상품명순") {
+      상품명순();
+    }
   };
 
   return (
@@ -88,18 +119,17 @@ function App() {
           {/* 필터기능 */}
           <div>
             필터
-            <select name="producFilter" id="productFilter">
+            <select
+              onChange={(e) => {
+                옵션선택(e);
+              }}
+              name="producFilter"
+              id="productFilter"
+            >
               <option value="필터없음">필터없음</option>
-              <option
-                value="낮은가격순"
-                onChange={() => {
-                  낮은가격순정렬();
-                }}
-              >
-                낮은가격순
-              </option>
+              <option value="낮은가격순">낮은가격순</option>
               <option value="높은가격순">높은가격순</option>
-              <option value="이름순">이름순</option>
+              <option value="상품명순">상품명순</option>
             </select>
           </div>
           {/* <재고context.Provider value={재고}> */}

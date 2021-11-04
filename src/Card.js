@@ -15,7 +15,9 @@ function Card(props) {
       }}
     >
       <img
-        src={`https://codingapple1.github.io/shop/shoes${props.i + 1}.jpg`}
+        src={`https://codingapple1.github.io/shop/shoes${
+          props.data.id + 1
+        }.jpg`}
         width="100%"
       />
       <h4>{props.data.title}</h4>
