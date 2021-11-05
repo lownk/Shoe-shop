@@ -9,50 +9,103 @@ import { Provider } from "react-redux";
 import { combineReducers, createStore } from "redux";
 
 // 장바구니
-const 초기값 = [
-  // { id: 0, name: "멋진신발", quantity: 1 },
-  // { id: 1, name: "좋은신발", quantity: 1 },
-];
 
-function reducer(state = 초기값, 액션) {
-  if (액션.type === "항목추가") {
-    const found = state.findIndex((a) => {
-      return a.id === 액션.payload.id;
-    });
-    //state안에 id가 액션.payload인 애가 있냐? 그 아이의 인덱스를 뱉어라
+const 초기값 = {
+  cart: [],
+  total: 0,
+};
 
-    if (found >= 0) {
-      const copy = [...state];
-      copy[found].quantity++;
-      return copy;
-    } else {
-      const copy = [...state];
-      copy.push(액션.payload);
-      return copy;
-    }
-  } else if (액션.type === "수량증가") {
-    const copy = [...state];
-    copy[액션.payload].quantity++;
-    return copy;
-  } else if (액션.type === "수량감소") {
-    const copy = [...state];
-    copy[액션.payload].quantity--;
-    return copy;
-  } else if (액션.type === "상품삭제") {
-    const copy = [...state];
-    const 생존상품 = copy.filter((상품) => {
-      return 상품.id !== 액션.payload;
-    });
-    return 생존상품;
-  } else {
-    return state;
+const cartReducer = (state = 초기값, 액션) => {
+  switch (액션.type) {
+    case "항목추가":
+      const cartitem = state.cart.find((item) => item.id === 액션.payload.id);
+
+      if (cartitem) {
+        cartitem.quantity += 액션.payload.quantity;
+      } else {
+        const addToCart = {
+          id: 액션.payload.id,
+          img: 액션.payload.img,
+          name: 액션.payload.name,
+          price: 액션.payload.price,
+          quantity: 1,
+        };
+        state.cart.push(addToCart);
+      }
+
+      return {
+        ...state,
+        cart: [...state.cart],
+        total: state.total + 액션.payload.price,
+      };
+
+    // if (cartitem) {
+    //   const copy = [...state];
+    //   copy[cartitem].quantity++;
+    //   return copy;
+    // } else {
+    //   const copy = [...state];
+    //   copy.push(액션.payload);
+    //   return copy;
+    // }
+
+    case "수량삭제":
+      return {
+        ...state,
+        cart: state.cart.filter((item) => item.id !== 액션.payload.id),
+        total: state.total - 액션.payload.price * 액션.payload.quantity,
+      };
+    // const copy = [...state];
+    // const 생존상품 = copy.filter((상품) => {
+    //   return 상품.id !== 액션.payload;
+    // });
+    // return 생존상품;
+
+    case "수량증가":
+      const plus = state.cart.find((item) => item.id === 액션.payload.id);
+
+      if (plus) {
+        plus.quantity += 1;
+      }
+
+      return {
+        ...state,
+        cart: [...state.cart],
+        total: state.total + 액션.payload.prie,
+      };
+
+    case "수량감소":
+      const minus = state.cart.find((item) => item.id === 액션.payload.id);
+
+      if (minus && minus.quantity > 1) {
+        minus.quantity -= 1;
+
+        return {
+          ...state,
+          cart: [...state.cart],
+          total: state.total - 액션.payload.price,
+        };
+      } else {
+        return {
+          ...state,
+          cart: [...state.cart],
+          total: state.total,
+        };
+      }
+    // const copy = [...state];
+    // if (액션.payload2 > 1) {
+    //   copy[액션.payload].quantity--;
+    // }
+    // return copy;
+    default:
+      return state;
   }
-}
+};
 
 // alert창
 const alert초기값 = true;
 
-function reducer2(state = alert초기값, 액션) {
+function alertReducer(state = alert초기값, 액션) {
   if (액션.type === "alert닫기") {
     state = false;
     return state;
@@ -61,7 +114,7 @@ function reducer2(state = alert초기값, 액션) {
   }
 }
 
-const store = createStore(combineReducers({ reducer, reducer2 }));
+const store = createStore(combineReducers({ cartReducer, alertReducer }));
 
 ReactDOM.render(
   <React.StrictMode>

@@ -1,8 +1,7 @@
 import React from "react";
 import { Button, Table } from "react-bootstrap";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
-import "./Cart.css";
+import { useDispatch, useSelector } from "react-redux";
+import "./Cart.scss";
 
 function Cart(props) {
   const state = useSelector((state) => state);
@@ -13,23 +12,28 @@ function Cart(props) {
       <Table responsive="sm">
         <thead>
           <tr>
-            <th>#</th>
+            <th>상품 no.</th>
             <th>상품명</th>
             <th>수량</th>
             <th>상품 삭제</th>
           </tr>
         </thead>
         <tbody>
-          {state.reducer.map((a, i) => {
+          {state.cartReducer.map((a, i) => {
             return (
               <tr key={i}>
                 <td>{a.id}</td>
                 <td>{a.name}</td>
                 <td>
                   <Button
+                    className="countButton"
                     variant="dark"
                     onClick={() => {
-                      dispatch({ type: "수량감소", payload: a.id });
+                      dispatch({
+                        type: "수량감소",
+                        payload: a.id,
+                        payload2: a.quantity,
+                      });
                     }}
                   >
                     -
@@ -37,8 +41,12 @@ function Cart(props) {
                   {a.quantity}
                   <Button
                     variant="dark"
+                    className="countButton"
                     onClick={() => {
-                      dispatch({ type: "수량증가", payload: a.id });
+                      dispatch({
+                        type: "수량증가",
+                        payload: a.id,
+                      });
                     }}
                   >
                     +
@@ -61,16 +69,19 @@ function Cart(props) {
         </tbody>
       </Table>
 
+      {/* alert  */}
       {props.alert열렸니 === true ? (
         <div className="my-alert2">
-          <p>지금 구매하시면 신규 할인 20%</p>
-          <button
-            onClick={() => {
-              dispatch({ type: "alert닫기" });
-            }}
-          >
-            닫기
-          </button>
+          <p>
+            지금 구매하시면 신규 할인 20%
+            <button
+              onClick={() => {
+                dispatch({ type: "alert닫기" });
+              }}
+            >
+              닫기
+            </button>
+          </p>
         </div>
       ) : null}
     </div>
@@ -79,8 +90,8 @@ function Cart(props) {
 
 // function 함수명(state) {
 //   return {
-//     state: state.reducer,
-//     alert열렸니: state.reducer2,
+//     state: state.alertReducer,
+//     alert열렸니: state.alertReducer,
 //   };
 // }
 // export default connect(함수명)(Cart);
