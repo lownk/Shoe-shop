@@ -21,15 +21,17 @@ const cartReducer = (state = 초기값, 액션) => {
       const cartitem = state.cart.find((item) => item.id === 액션.payload.id);
 
       if (cartitem) {
-        cartitem.quantity += 액션.payload.quantity;
+        // console.log("hi");
+        cartitem.quantity++;
       } else {
         const addToCart = {
           id: 액션.payload.id,
           img: 액션.payload.img,
-          name: 액션.payload.name,
+          title: 액션.payload.title,
           price: 액션.payload.price,
           quantity: 1,
         };
+
         state.cart.push(addToCart);
       }
 
@@ -49,10 +51,10 @@ const cartReducer = (state = 초기값, 액션) => {
     //   return copy;
     // }
 
-    case "수량삭제":
+    case "상품삭제":
       return {
         ...state,
-        cart: state.cart.filter((item) => item.id !== 액션.payload.id),
+        cart: state.cart.filter((item) => item.id !== 액션.payload),
         total: state.total - 액션.payload.price * 액션.payload.quantity,
       };
     // const copy = [...state];
@@ -62,10 +64,9 @@ const cartReducer = (state = 초기값, 액션) => {
     // return 생존상품;
 
     case "수량증가":
-      const plus = state.cart.find((item) => item.id === 액션.payload.id);
-
+      const plus = state.cart.find((item) => item.id === 액션.payload);
       if (plus) {
-        plus.quantity += 1;
+        plus.quantity++;
       }
 
       return {
@@ -75,10 +76,10 @@ const cartReducer = (state = 초기값, 액션) => {
       };
 
     case "수량감소":
-      const minus = state.cart.find((item) => item.id === 액션.payload.id);
+      const minus = state.cart.find((item) => item.id === 액션.payload);
 
       if (minus && minus.quantity > 1) {
-        minus.quantity -= 1;
+        minus.quantity--;
 
         return {
           ...state,

@@ -163,7 +163,14 @@ function Detail(props) {
               ]);
               dispatch({
                 type: "항목추가",
-                payload: { id: 찾은상품.id, name: 찾은상품.title, quantity: 1 },
+                payload: {
+                  id: 찾은상품.id,
+                  title: 찾은상품.title,
+                  img: `https://codingapple1.github.io/shop/shoes${
+                    찾은상품.id + 1
+                  }.jpg`,
+                  price: 찾은상품.price,
+                },
               });
               history.push("/cart");
             }}

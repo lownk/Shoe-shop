@@ -6,24 +6,28 @@ import "./Cart.scss";
 function Cart(props) {
   const state = useSelector((state) => state);
   const dispatch = useDispatch();
-
+  // console.log("ffff", state);
   return (
     <div>
       <Table responsive="sm">
         <thead>
           <tr>
             <th>상품 no.</th>
+            <th>상품이미지</th>
             <th>상품명</th>
             <th>수량</th>
             <th>상품 삭제</th>
           </tr>
         </thead>
         <tbody>
-          {state.cartReducer.map((a, i) => {
+          {state.cartReducer.cart.map((a, i) => {
             return (
               <tr key={i}>
-                <td>{a.id}</td>
-                <td>{a.name}</td>
+                <td className="col-my-auto">{a.id}</td>
+                <td className="col-md-2">
+                  <img className="shoePic" alt="shoes" src={a.img} />
+                </td>
+                <td>{a.title}</td>
                 <td>
                   <Button
                     className="countButton"
@@ -55,7 +59,7 @@ function Cart(props) {
                 <td>
                   <Button
                     className="btn btn-primary"
-                    variant="상품삭제"
+                    variant="primary"
                     onClick={() => {
                       dispatch({ type: "상품삭제", payload: a.id });
                     }}
