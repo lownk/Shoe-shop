@@ -170,6 +170,7 @@ function Detail(props) {
                     찾은상품.id + 1
                   }.jpg`,
                   price: 찾은상품.price,
+                  content: 찾은상품.content,
                 },
               });
               history.push("/cart");

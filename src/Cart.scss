@@ -3,6 +3,25 @@
   margin-bottom: auto;
 }
 
+.productTitle {
+  margin-top: 35px;
+}
+
+.marginn {
+  margin-left: 15px;
+  margin-top: 35px;
+}
+
+.countBar {
+  width: 110px;
+  display: flex;
+  justify-content: space-between;
+
+  .countNumber {
+    margin: auto;
+  }
+}
+
 .my-alert2 {
   background-color: #eeeeee;
   padding: 20px;

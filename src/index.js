@@ -29,6 +29,7 @@ const cartReducer = (state = 초기값, 액션) => {
           img: 액션.payload.img,
           title: 액션.payload.title,
           price: 액션.payload.price,
+          content: 액션.payload.content,
           quantity: 1,
         };
 
@@ -41,27 +42,12 @@ const cartReducer = (state = 초기값, 액션) => {
         total: state.total + 액션.payload.price,
       };
 
-    // if (cartitem) {
-    //   const copy = [...state];
-    //   copy[cartitem].quantity++;
-    //   return copy;
-    // } else {
-    //   const copy = [...state];
-    //   copy.push(액션.payload);
-    //   return copy;
-    // }
-
     case "상품삭제":
       return {
         ...state,
         cart: state.cart.filter((item) => item.id !== 액션.payload),
         total: state.total - 액션.payload.price * 액션.payload.quantity,
       };
-    // const copy = [...state];
-    // const 생존상품 = copy.filter((상품) => {
-    //   return 상품.id !== 액션.payload;
-    // });
-    // return 생존상품;
 
     case "수량증가":
       const plus = state.cart.find((item) => item.id === 액션.payload);
@@ -72,7 +58,7 @@ const cartReducer = (state = 초기값, 액션) => {
       return {
         ...state,
         cart: [...state.cart],
-        total: state.total + 액션.payload.prie,
+        total: state.total + 액션.payload.price,
       };
 
     case "수량감소":
@@ -93,11 +79,6 @@ const cartReducer = (state = 초기값, 액션) => {
           total: state.total,
         };
       }
-    // const copy = [...state];
-    // if (액션.payload2 > 1) {
-    //   copy[액션.payload].quantity--;
-    // }
-    // return copy;
     default:
       return state;
   }
