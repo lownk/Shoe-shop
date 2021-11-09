@@ -22,6 +22,20 @@
   }
 }
 
+.totalAmount {
+  width: 500px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 50px auto;
+
+  .center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
 .my-alert2 {
   background-color: #eeeeee;
   padding: 20px;

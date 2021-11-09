@@ -7,7 +7,6 @@ function Cart(props) {
   const state = useSelector((state) => state);
   const dispatch = useDispatch();
   // console.log("ffff", state);
-  let [해당상품가격, 해당상품가격변경] = useState();
 
   return (
     <>
@@ -51,8 +50,11 @@ function Cart(props) {
                       onClick={() => {
                         dispatch({
                           type: "수량감소",
-                          payload: a.id,
-                          payload2: a.quantity,
+                          payload: {
+                            id: a.id,
+                            quantity: a.quantity,
+                            price: a.price,
+                          },
                         });
                       }}
                     >
@@ -65,7 +67,10 @@ function Cart(props) {
                       onClick={() => {
                         dispatch({
                           type: "수량증가",
-                          payload: a.id,
+                          payload: {
+                            id: a.id,
+                            price: a.price,
+                          },
                         });
                       }}
                     >
@@ -78,7 +83,14 @@ function Cart(props) {
                     className="btn btn-primary productTitle"
                     variant="dark"
                     onClick={() => {
-                      dispatch({ type: "상품삭제", payload: a.id });
+                      dispatch({
+                        type: "상품삭제",
+                        payload: {
+                          id: a.id,
+                          price: a.price,
+                          quantity: a.quantity,
+                        },
+                      });
                     }}
                   >
                     삭제
@@ -89,15 +101,27 @@ function Cart(props) {
           })}
         </tbody>
       </Table>
-
       {/* 총합계금액 */}
-      <div>
-        <span>상품 구매금액</span>
-        {/* <span>₩{20000.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span> */}
-        <span>+</span>
-        <span>배송비 ₩2,500</span>
-      </div>
 
+      <div className="totalAmount">
+        <span className="center">상품 금액</span>
+        <b className="center">
+          ₩
+          {state.cartReducer.total
+            .toString()
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+        </b>
+        <span className="center">+</span>
+        <span className="center">배송비</span>
+        <b className="center">₩2,500</b>
+        <span className="center">=</span>
+        <h3 className="center">
+          ₩
+          {(state.cartReducer.total + 2500)
+            .toString()
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+        </h3>
+      </div>
       {/* alert  */}
       {props.alert열렸니 === true ? (
         <div className="my-alert2">

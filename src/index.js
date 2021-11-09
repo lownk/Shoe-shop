@@ -12,6 +12,7 @@ import { combineReducers, createStore } from "redux";
 
 const 초기값 = {
   cart: [],
+  // each:
   total: 0,
 };
 
@@ -45,14 +46,15 @@ const cartReducer = (state = 초기값, 액션) => {
     case "상품삭제":
       return {
         ...state,
-        cart: state.cart.filter((item) => item.id !== 액션.payload),
+        cart: state.cart.filter((item) => item.id !== 액션.payload.id),
         total: state.total - 액션.payload.price * 액션.payload.quantity,
       };
 
     case "수량증가":
-      const plus = state.cart.find((item) => item.id === 액션.payload);
+      const plus = state.cart.find((item) => item.id === 액션.payload.id);
       if (plus) {
         plus.quantity++;
+        console.log("this", 액션.payload.price);
       }
 
       return {
@@ -62,7 +64,7 @@ const cartReducer = (state = 초기값, 액션) => {
       };
 
     case "수량감소":
-      const minus = state.cart.find((item) => item.id === 액션.payload);
+      const minus = state.cart.find((item) => item.id === 액션.payload.id);
 
       if (minus && minus.quantity > 1) {
         minus.quantity--;
