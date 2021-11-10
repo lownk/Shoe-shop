@@ -145,7 +145,7 @@ function Detail(props) {
           <Info 재고={props.재고} />
 
           <button
-            className="btn btn-dark mx-2 my-3 px-5 py-3"
+            className="btn btn-light mx-2 my-3 px-5 py-3"
             onClick={() => {
               history.push("/");
             }}
@@ -153,7 +153,7 @@ function Detail(props) {
             뒤로가기
           </button>
           <button
-            className="btn btn-primary mx-2 px-5 py-3"
+            className="btn btn-dark mx-2 px-5 py-3"
             onClick={() => {
               props.재고변경([
                 ...props.재고.map((i) => {

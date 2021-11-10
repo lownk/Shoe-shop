@@ -10,6 +10,12 @@ import Loading from "./Loading.js";
 import Fail from "./Fail";
 import { Link, Route } from "react-router-dom";
 import Cart from "./Cart";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTwitter } from "@fortawesome/free-brands-svg-icons";
+import {
+  faPhoneAlt,
+  faQuestionCircle,
+} from "@fortawesome/free-solid-svg-icons";
 
 export const 재고context = React.createContext();
 
@@ -132,17 +138,18 @@ function App() {
               <option value="상품명순">상품명순</option>
             </select>
           </div>
-          {/* <재고context.Provider value={재고}> */}
+
+          {/* 상품카드 */}
           <div className="row">
             {data.map((a, i) => {
               return <Card data={data[i]} i={i} key={i} />;
             })}
           </div>
-          {/* </재고context.Provider> */}
 
+          {/* 더보기버튼 */}
           {더보기 == true ? (
             <button
-              className="btn btn-primary my-5 px-5 mx-5"
+              className="btn btn-dark my-5 px-5 mx-5"
               onClick={() => {
                 클릭횟수변경(클릭횟수 + 1);
                 // console.log(클릭횟수);
@@ -175,10 +182,94 @@ function App() {
         {실패창 == true ? <Fail /> : null}
       </Route>
 
+      <div className="footer">
+        <article className="footerOne">
+          <div className="elWrap">
+            <span className="element">CONTACT US</span>
+            <span className="element">
+              <FontAwesomeIcon icon={faTwitter} className="icons" />
+              <span className="text">@sinushoe_help</span>
+            </span>
+            <span className="element">
+              <FontAwesomeIcon icon={faPhoneAlt} className="icons" />
+              <span className="text">1 234 567 8910</span>
+            </span>
+            <span className="element">
+              <FontAwesomeIcon icon={faQuestionCircle} className="icons" />
+              <span className="text">help@sinushoe.com</span>
+            </span>
+          </div>
+        </article>
+        <article className="footerTwo">
+          <span className="sectionOne">
+            <span className="largeCategorie">LET US HELP YOU</span>
+            <ul className="smallCategorie">
+              <li className="text">Order Status</li>
+              <li className="text">Shipping & Handling</li>
+              <li className="text">Returns & Exchanges</li>
+              <li className="text">International Orders</li>
+              <li className="text">Need Some Help?</li>
+              <li className="text">Request a Style Guide</li>
+            </ul>
+          </span>
+
+          <span className="sectionTwo">
+            <span className="largeCategorie">OUR STORES</span>
+            <ul className="smallCategorie">
+              <li className="text">Stores Locator</li>
+            </ul>
+            <span className="largeCategorie">sinuSHOE REWARDS</span>
+            <ul className="smallCategorie">
+              <li className="text">Sign Up Now</li>
+              <li className="text">FAQs</li>
+            </ul>
+          </span>
+
+          <span className="sectionThree">
+            <span className="largeCategorie">OUR BRANDS</span>
+            <ul className="smallCategorie">
+              <li className="text">sinuSHOE Factory</li>
+              <li className="text">The Loyal Shoe</li>
+            </ul>
+            <span className="largeCategorie">ABOUT sinuSHOE</span>
+            <ul className="smallCategorie">
+              <li className="text">Out Story</li>
+              <li className="text">Careers</li>
+            </ul>
+          </span>
+
+          <span className="sectionFour">
+            <span className="largeCategorie">POPULAR SEARCHES</span>
+            <ul className="smallCategorie">
+              <li className="text">Sneakers</li>
+              <li className="text">Heels</li>
+              <li className="text">Dress Shoes</li>
+              <li className="text">Sport Shoes </li>
+              <li className="text">Slippers</li>
+            </ul>
+          </span>
+
+          <span className="sectionFive">
+            <span className="largeCategorie">GET TO KNOW US</span>
+            <ul className="smallCategorie">
+              <li className="text">Sneakers</li>
+              <li className="text">
+                SHIP TO : <span className="flag">🇰🇷</span> SOUTH KOREA | CHANGES
+              </li>
+            </ul>
+
+            {/* <ul className="shipTo">
+              <li className="text">
+                SHIP TO : <span className="flag">🇰🇷</span> SOUTH KOREA | CHANGES
+              </li>
+            </ul> */}
+          </span>
+        </article>
+      </div>
+
       <Route path="/detail/:id">
         <Detail data={data} 재고={재고} 재고변경={재고변경} />
       </Route>
-
       <Route path="/cart">
         <Cart />
       </Route>

@@ -1,19 +1,19 @@
+.parent {
+  height: auto;
+  vertical-align: middle;
+  .child {
+    height: auto;
+    width: auto;
+  }
+}
+
 .myAuto {
   margin-top: auto;
   margin-bottom: auto;
 }
 
-.productTitle {
-  margin-top: 35px;
-}
-
-.marginn {
-  margin-left: 15px;
-  margin-top: 35px;
-}
-
 .countBar {
-  width: 110px;
+  width: 130px;
   display: flex;
   justify-content: space-between;
 

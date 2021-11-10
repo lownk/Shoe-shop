@@ -25,25 +25,25 @@ function Cart(props) {
           {state.cartReducer.cart.map((a, i) => {
             return (
               <tr key={i}>
-                <td>
-                  <div className="marginn">{a.id}</div>
+                <td className="parent">
+                  <div className="child">{a.id}</div>
                 </td>
                 <td className="col-md-2">
                   <img className="shoePic" alt="shoes" src={a.img} />
                 </td>
-                <td>
-                  <div className="productTitle">
+                <td className="parent">
+                  <div className="child">
                     <b>{a.title}</b>
                     <div>{a.content}</div>
                   </div>
                 </td>
-                <td>
-                  <div className="productTitle">
+                <td className="parent">
+                  <div className="child">
                     ₩{a.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                   </div>
                 </td>
-                <td>
-                  <div className="countBar productTitle">
+                <td className="parent">
+                  <div className="countBar">
                     <Button
                       className="countButton"
                       variant="light"
@@ -78,9 +78,9 @@ function Cart(props) {
                     </Button>
                   </div>
                 </td>
-                <td>
+                <td className="parent">
                   <Button
-                    className="btn btn-primary productTitle"
+                    className="btn btn-primary child"
                     variant="dark"
                     onClick={() => {
                       dispatch({
