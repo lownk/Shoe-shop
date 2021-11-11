@@ -13,17 +13,18 @@
     margin: 5px 0px;
     padding-left: 0px;
     list-style-type: none;
+    cursor: pointer;
   }
 
   .shipTo {
-    // @extend .text;
-    width: 300px;
-    margin-top: 100px;
+    font-size: 8px;
+    margin-top: 30px;
   }
 
   .flag {
     font-size: 1.5rem;
     margin: auto;
+    vertical-align: middle;
   }
 
   .footerOne {
@@ -49,26 +50,41 @@
   }
 
   .footerTwo {
-    display: flex;
-    background-color: #eeeeee;
     width: auto;
-    height: 300px;
+    height: 280px;
     padding: 20px 50px;
     margin: auto;
+    background-color: #eeeeee;
+    display: flex;
+    justify-content: center;
 
     .sectionOne,
     .sectionTwo,
     .sectionThree,
-    .sectionFour,
-    .sectionFive {
-      width: auto;
+    .sectionFour {
+      width: 170px;
       height: auto;
-      margin: 15px 30px;
+      margin: 30px 20px;
+    }
+
+    .sectionFive {
+      width: 220px;
+      height: auto;
+      margin: 30px 20px;
     }
 
     .smallCategorie {
       list-style-type: none;
       padding-left: 0px;
+
+      .littleIcons {
+        justify-content: space-between;
+        font-size: 18px;
+      }
+
+      .littleIcons:not(:last-child) {
+        margin-right: 10px;
+      }
     }
   }
 }

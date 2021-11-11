@@ -11,7 +11,16 @@ import Fail from "./Fail";
 import { Link, Route } from "react-router-dom";
 import Cart from "./Cart";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTwitter } from "@fortawesome/free-brands-svg-icons";
+import {
+  faTwitter,
+  faFacebook,
+  faTumblrSquare,
+  faInstagram,
+  faYoutube,
+  faSpotify,
+  faPinterest,
+  faGooglePlusG,
+} from "@fortawesome/free-brands-svg-icons";
 import {
   faPhoneAlt,
   faQuestionCircle,
@@ -182,6 +191,7 @@ function App() {
         {실패창 == true ? <Fail /> : null}
       </Route>
 
+      {/* 푸터 */}
       <div className="footer">
         <article className="footerOne">
           <div className="elWrap">
@@ -252,17 +262,23 @@ function App() {
           <span className="sectionFive">
             <span className="largeCategorie">GET TO KNOW US</span>
             <ul className="smallCategorie">
-              <li className="text">Sneakers</li>
               <li className="text">
-                SHIP TO : <span className="flag">🇰🇷</span> SOUTH KOREA | CHANGES
+                <FontAwesomeIcon icon={faTwitter} className="littleIcons" />
+                <FontAwesomeIcon icon={faInstagram} className="littleIcons" />
+                <FontAwesomeIcon icon={faGooglePlusG} className="littleIcons" />
+                <FontAwesomeIcon icon={faFacebook} className="littleIcons" />
+                <FontAwesomeIcon
+                  icon={faTumblrSquare}
+                  className="littleIcons"
+                />
+                <FontAwesomeIcon icon={faYoutube} className="littleIcons" />
+                <FontAwesomeIcon icon={faSpotify} className="littleIcons" />
+                <FontAwesomeIcon icon={faPinterest} className="littleIcons" />
+              </li>
+              <li className="text shipTo">
+                SHIP TO : <span className="flag">🇰🇷</span> SOUTH KOREA | CHANGE
               </li>
             </ul>
-
-            {/* <ul className="shipTo">
-              <li className="text">
-                SHIP TO : <span className="flag">🇰🇷</span> SOUTH KOREA | CHANGES
-              </li>
-            </ul> */}
           </span>
         </article>
       </div>

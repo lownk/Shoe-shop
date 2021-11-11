@@ -3,7 +3,7 @@ import { Alert } from "react-bootstrap";
 import "./Fail.scss";
 
 function Fail() {
-  return ["primary"].map((variant, idx) => (
+  return ["secondary"].map((variant, idx) => (
     <Alert
       className="mx-auto my-5"
       key={idx}
