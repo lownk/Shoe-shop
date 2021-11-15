@@ -6,14 +6,12 @@ import { Nav } from "react-bootstrap";
 import { CSSTransition } from "react-transition-group";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-// import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import RecentlyViewed from "./RecentlyViewed";
-// import { GlassMagnifier } from "react-image-magnifiers";
 import Magnifier from "react-glass-magnifier";
 
 const 박스 = styled.div`
@@ -28,17 +26,20 @@ const 제목 = styled.h4`
 `;
 
 function Detail(props) {
-  let [alert, alert변경] = useState(true);
-  // const [inputData, inputData변경] = useState("");
-  let [누른탭, 누른탭변경] = useState(0);
-  let [스위치, 스위치변경] = useState(false);
   let { id } = useParams();
   let history = useHistory();
+  let state = useSelector((state) => state);
+  const dispatch = useDispatch();
+
+  let [alert, alert변경] = useState(true);
+  let [누른탭, 누른탭변경] = useState(0);
+  let [스위치, 스위치변경] = useState(false);
+  let [최근본상품, 최근본상품변경] = useState([]);
+  let [최근본상품표시, 최근본상품표시변경] = useState(false);
+
   let 찾은상품 = props.data.find((상품) => {
     return 상품.id == id;
   });
-  let state = useSelector((state) => state);
-  const dispatch = useDispatch();
 
   // 최근 본 상품 기능 구현
   // 1. 누가 detail페이지 들어가면
@@ -61,15 +62,35 @@ function Detail(props) {
     arr.push(id);
     arr = [...arr];
 
+    //이미 본 상품을 또 봤을때 이전의 자리에서 제거하고 배열의 가장 끝에 다시 추가해주는 로직(최신순이 되도록)
     if (arr.includes(id)) {
       arr = arr.filter((a) => a !== id);
       arr.push(id);
     }
-    //이미 본 상품을 또 봤을때 이전의 자리에서 제거하고 배열의 가장 끝에 다시 추가해줌(최신순이 되도록)
+
+    // 화면에 5개의 상품만 보여줄거니까 6개가 되면 맨앞 요소 삭제
+    if (arr.length > 5) {
+      arr.shift();
+    }
 
     localStorage.setItem("watched", JSON.stringify(arr));
-    console.log(arr);
+    console.log("저장한목록", arr);
   }, []);
+
+  // localStorage 내용물 가져오기
+  useEffect(() => {
+    let arr = localStorage.getItem("watched");
+    arr = JSON.parse(arr);
+
+    arr = [...arr];
+    console.log("따옴표뗀목록", arr);
+
+    최근본상품변경(arr);
+  }, []);
+
+  useEffect(() => {
+    console.log("최근본상품", 최근본상품);
+  }, [최근본상품]);
 
   useEffect(() => {
     const 타이머 = setTimeout(() => {
@@ -77,6 +98,15 @@ function Detail(props) {
     }, 2000);
     return () => {
       clearTimeout(타이머); //setTimeOut주의점 : 컴포넌트 사라질때 타이머 해제하기. 코드꼬임 버그예방
+    };
+  }, []);
+
+  useEffect(() => {
+    const 타이머 = setTimeout(() => {
+      alert변경(false);
+    }, 2000);
+    return () => {
+      clearTimeout(타이머);
     };
   }, []);
 
@@ -91,7 +121,6 @@ function Detail(props) {
           inputData변경(e.target.value);
         }}
       /> */}
-
       {alert === true ? (
         <div className="my-alert2">
           <p>재고가 얼마 남지 않았습니다.</p>
@@ -190,7 +219,17 @@ function Detail(props) {
           />
         </div>
       </div>
-      <RecentlyViewed />
+
+      {/* 최근본상품 */}
+      {최근본상품표시 === false ? (
+        <recentlyViewed
+          최근본상품={최근본상품}
+          최근본상품변경={최근본상품변경}
+          최근본상품표시={최근본상품표시}
+          최근본상품표시변경={최근본상품표시변경}
+        />
+      ) : null}
+
       {/* 상세설명 탭 */}
       <Nav
         className="mt-5 describeBox"
@@ -255,6 +294,29 @@ function TabContent(props) {
 
 function Info(props) {
   return <p>재고 : {props.재고[0]}</p>;
+}
+
+function recentlyViewed(props) {
+  return (
+    <div className="container recentlyViewedBox">
+      <div className="row">
+        최근 본 상품
+        {props.최근본상품.map((a, i) => {
+          return a > 0 ? (
+            <div className="innerBox col-md-2">
+              <img
+                src={`https://codingapple1.github.io/shop/shoes${a}.jpg`}
+                width="90%"
+                onClick={() => {
+                  // history.push(`/detail/${a - 1}`);
+                }}
+              />
+            </div>
+          ) : null;
+        })}
+      </div>
+    </div>
+  );
 }
 
 export default Detail;

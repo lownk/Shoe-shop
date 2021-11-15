@@ -52,6 +52,7 @@ const cartReducer = (state = 초기값, 액션) => {
 
     case "수량증가":
       const plus = state.cart.find((item) => item.id === 액션.payload.id);
+
       if (plus) {
         plus.quantity++;
         console.log("this", 액션.payload.price);

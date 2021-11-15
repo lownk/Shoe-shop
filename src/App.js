@@ -36,15 +36,16 @@ function App() {
   let [더보기, 더보기변경] = useState(true);
   let [재고, 재고변경] = useState([10, 11, 12]);
 
-  // 필터링함수
+  // 정렬함수
 
-  let 필터없음 = () => {
+  let 정렬없음 = () => {
     let sortingField = "id";
     let copyData = [...data];
     copyData = copyData.sort(function (a, b) {
       return a[sortingField] - b[sortingField];
     });
     data변경(copyData);
+    console.log(data변경);
   };
 
   let 낮은가격순 = () => {
@@ -79,8 +80,8 @@ function App() {
 
   // 옵션 이벤트핸들러
   let 옵션선택 = (e) => {
-    if (e.target.value === "필터없음") {
-      필터없음();
+    if (e.target.value === "정렬없음") {
+      정렬없음();
     } else if (e.target.value === "낮은가격순") {
       낮은가격순();
     } else if (e.target.value === "높은가격순") {
@@ -112,11 +113,9 @@ function App() {
                     Shopping Cart
                   </NavDropdown.Item>
                   <NavDropdown.Item href="#action/3.2">
-                    Another action
+                    What Are We
                   </NavDropdown.Item>
-                  <NavDropdown.Item href="#action/3.3">
-                    Something
-                  </NavDropdown.Item>
+                  <NavDropdown.Item href="#action/3.3">Stores</NavDropdown.Item>
                   <NavDropdown.Divider />
                   <NavDropdown.Item href="#action/3.4">
                     Separated link
@@ -131,7 +130,7 @@ function App() {
       <Route exact path="/">
         <Jumbotron />
         <div className="container">
-          {/* 필터기능 */}
+          {/* 정렬기능 */}
           <div className="filterStyle">
             상품 정렬 :
             <select
@@ -189,6 +188,13 @@ function App() {
           {로딩창 == true ? <Loading /> : null}
         </div>
         {실패창 == true ? <Fail /> : null}
+      </Route>
+
+      <Route path="/detail/:id">
+        <Detail data={data} 재고={재고} 재고변경={재고변경} />
+      </Route>
+      <Route path="/cart">
+        <Cart />
       </Route>
 
       {/* 푸터 */}
@@ -282,13 +288,6 @@ function App() {
           </span>
         </article>
       </div>
-
-      <Route path="/detail/:id">
-        <Detail data={data} 재고={재고} 재고변경={재고변경} />
-      </Route>
-      <Route path="/cart">
-        <Cart />
-      </Route>
     </div>
   );
 }

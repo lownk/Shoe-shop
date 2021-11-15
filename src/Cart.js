@@ -6,7 +6,6 @@ import "./Cart.scss";
 function Cart(props) {
   const state = useSelector((state) => state);
   const dispatch = useDispatch();
-  // console.log("ffff", state);
 
   return (
     <>

@@ -90,7 +90,8 @@
 }
 
 .background {
-  background-image: url("./background.jpeg");
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+    url("./background.jpeg");
   background-position: 50% 60%;
   background-size: cover;
   color: white;
