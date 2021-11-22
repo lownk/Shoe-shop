@@ -11,7 +11,7 @@ import {
   faChevronLeft,
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
-import RecentlyViewed from "./RecentlyViewed";
+// import RecentlyViewed from "./RecentlyViewed";
 import Magnifier from "react-glass-magnifier";
 
 const 박스 = styled.div`
@@ -24,6 +24,29 @@ const 제목 = styled.h4`
   margin-top: 30px;
   margin-bottom: 20px;
 `;
+
+function RecentlyViewed(props) {
+  return (
+    <div className="container recentlyViewedBox">
+      <div className="row">
+        최근 본 상품
+        {props.최근본상품.map((a, i) => {
+          return a > 0 ? (
+            <div className="innerBox col-md-2">
+              <img
+                src={`https://codingapple1.github.io/shop/shoes${a}.jpg`}
+                width="90%"
+                onClick={() => {
+                  // history.push(`/detail/${a - 1}`);
+                }}
+              />
+            </div>
+          ) : null;
+        })}
+      </div>
+    </div>
+  );
+}
 
 function Detail(props) {
   let { id } = useParams();
@@ -115,12 +138,6 @@ function Detail(props) {
       <박스>
         <제목>Product Detail</제목>
       </박스>
-      {/* {inputData}
-      <input
-        onChange={(e) => {
-          inputData변경(e.target.value);
-        }}
-      /> */}
       {alert === true ? (
         <div className="my-alert2">
           <p>재고가 얼마 남지 않았습니다.</p>
@@ -155,14 +172,6 @@ function Detail(props) {
               glassBorderColor="white"
               glassBorderWidth={1}
             />
-            {/* <img
-              className="target"
-              data-scale="2"
-              src={`https://codingapple1.github.io/shop/shoes${
-                찾은상품.id + 1
-              }.jpg`}
-              width="100%"
-            /> */}
           </div>
         </div>
         <div className="col-md-4 m-auto">
@@ -221,14 +230,16 @@ function Detail(props) {
       </div>
 
       {/* 최근본상품 */}
-      {최근본상품표시 === false ? (
-        <recentlyViewed
-          최근본상품={최근본상품}
-          최근본상품변경={최근본상품변경}
-          최근본상품표시={최근본상품표시}
-          최근본상품표시변경={최근본상품표시변경}
-        />
-      ) : null}
+      {/* {최근본상품표시 === false ? ( */}
+      <RecentlyViewed
+        최근본상품={최근본상품}
+        최근본상품변경={최근본상품변경}
+        최근본상품표시={최근본상품표시}
+        최근본상품표시변경={최근본상품표시변경}
+      />
+      {/* ) : null} */}
+
+      {/* <RecentlyViewed /> */}
 
       {/* 상세설명 탭 */}
       <Nav
@@ -294,29 +305,6 @@ function TabContent(props) {
 
 function Info(props) {
   return <p>재고 : {props.재고[0]}</p>;
-}
-
-function recentlyViewed(props) {
-  return (
-    <div className="container recentlyViewedBox">
-      <div className="row">
-        최근 본 상품
-        {props.최근본상품.map((a, i) => {
-          return a > 0 ? (
-            <div className="innerBox col-md-2">
-              <img
-                src={`https://codingapple1.github.io/shop/shoes${a}.jpg`}
-                width="90%"
-                onClick={() => {
-                  // history.push(`/detail/${a - 1}`);
-                }}
-              />
-            </div>
-          ) : null;
-        })}
-      </div>
-    </div>
-  );
 }
 
 export default Detail;

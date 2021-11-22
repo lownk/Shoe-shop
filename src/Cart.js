@@ -1,14 +1,25 @@
 import React, { useState } from "react";
-import { Button, Table } from "react-bootstrap";
+import { Button, Table, Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import "./Cart.scss";
 
 function Cart(props) {
   const state = useSelector((state) => state);
+  let [모달창열렸니, 모달창열렸니변경] = useState(false);
+  let [상품안내, 상품안내변경] = useState(false);
   const dispatch = useDispatch();
 
+  const 모달창토글 = (e) => {
+    모달창열렸니변경(!모달창열렸니);
+  };
+
+  const 상품없음안내노출 = () => {
+    console.log("hihihihi");
+    상품안내변경(true);
+  };
+
   return (
-    <>
+    <div>
       <Table responsive="sm">
         <thead>
           <tr>
@@ -102,6 +113,10 @@ function Cart(props) {
       </Table>
       {/* 총합계금액 */}
 
+      {상품안내 && (
+        <div className="noItem">장바구니에 담긴 상품이 없습니다.</div>
+      )}
+
       <div className="totalAmount">
         <span className="center">상품 금액</span>
         <b className="center">
@@ -121,6 +136,45 @@ function Cart(props) {
             .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
         </h3>
       </div>
+      <div className="orderWrap">
+        <Button
+          className="btn btn-dark px-5 py-3 orderBtn"
+          variant="dark"
+          onClick={모달창토글}
+        >
+          주문하기
+        </Button>
+      </div>
+
+      {모달창열렸니 && (
+        <div className="modalWrap" onClick={모달창토글}>
+          <div className="orderModal" onClick={(e) => e.stopPropagation()}>
+            <div>
+              <h4>주문이 완료되었습니다!</h4>
+              <div className="smallFont">
+                빠른 시일 내 상품 배송을 시작하겠습니다.
+              </div>
+              <br />
+              <span className="ok" onClick={모달창토글}>
+                <Button
+                  className="btn btn-dark smallFont"
+                  variant="dark"
+                  onClick={() => {
+                    state.cartReducer.cart = [];
+                    state.cartReducer.total = 0;
+                    {
+                      상품없음안내노출();
+                    }
+                  }}
+                >
+                  알겠습니다
+                </Button>
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* alert  */}
       {props.alert열렸니 === true ? (
         <div className="my-alert2">
@@ -136,15 +190,8 @@ function Cart(props) {
           </p>
         </div>
       ) : null}
-    </>
+    </div>
   );
 }
 
-// function 함수명(state) {
-//   return {
-//     state: state.alertReducer,
-//     alert열렸니: state.alertReducer,
-//   };
-// }
-// export default connect(함수명)(Cart);
 export default Cart;
